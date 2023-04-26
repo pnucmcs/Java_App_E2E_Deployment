@@ -5,6 +5,9 @@ pipeline {
         args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
 }
+  environment {
+    PATH = "$PATH:/usr/bin"
+  }
   stages {
     stage('Checkout') {
       steps {
