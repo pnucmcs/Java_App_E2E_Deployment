@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'pno2cidocker/maven-abhishek-docker-agent:v1'
-      //args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+      args '-v $HOME/.m2:/root/.m2'
     }
   }
   stages {
@@ -14,7 +14,6 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        sh 'source /etc/profile'
         sh 'ls -ltr'
         // build the project and create a JAR file
         sh 'mvn clean package'
@@ -37,7 +36,6 @@ pipeline {
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
-        sh 'source /etc/profile'
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
