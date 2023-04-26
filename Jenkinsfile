@@ -8,13 +8,13 @@ pipeline {
   environment {
     PATH = "$PATH:/usr/bin"
   }
-   stages {
+    
+  stages {
     stage('Print PATH variable') {
       steps {
         sh 'echo $PATH'
       }
     }
-  stages {
     stage('Checkout') {
       steps {
         sh 'echo passed'
