@@ -14,6 +14,7 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
+        sh 'source /etc/profile'
         sh 'ls -ltr'
         // build the project and create a JAR file
         sh 'mvn clean package'
@@ -36,6 +37,7 @@ pipeline {
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
+        sh 'source /etc/profile'
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
