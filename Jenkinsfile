@@ -3,9 +3,6 @@ pipeline {
     docker {
         image 'pno2cidocker/maven-abhishek-docker-agent:v1'
         args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-        environment {
-            PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-        }
     }
 }
   stages {
