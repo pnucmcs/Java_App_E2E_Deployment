@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-       image 'pno2cidocker/maven-agent:v1'
+       image 'pno2cidocker/maven-agent:pn02cidocker'
    }
 }
    stages {
@@ -41,7 +41,7 @@ pipeline {
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('https://index.docker.io/', "docker-cred") {
+            docker.withRegistry('https://index.docker.io/pn02cidocker', "docker-cred") {
                 dockerImage.push()
             }
         }
