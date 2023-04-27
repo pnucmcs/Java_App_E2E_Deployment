@@ -1,8 +1,10 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.6.3-openjdk-11-slim'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
+      image 'maven:3.6.3-openjdk-17
+      registryUrl 'https://registry.hub.docker.com'
+      registryCredentialsId 'docker-cred'
+      args '-v ${HOME}/.m2:/root/.m2'
    }
 }
    parameters {
