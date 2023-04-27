@@ -1,15 +1,12 @@
 pipeline {
   agent {
     docker {
-       image 'pno2cidocker/maven-agent:pn02cidocker'
+       image 'pno2cidocker/maven-agent'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
    }
 }
+  
    stages {
-    stage('Print PATH variable') {
-      steps {
-        sh 'echo $PATH'
-      }
-    }
     stage('Checkout') {
       steps {
         sh 'echo passed'
