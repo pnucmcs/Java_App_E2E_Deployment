@@ -1,14 +1,10 @@
 pipeline {
   agent {
     docker {
-       image 'pno2cidocker/maven-abhishek-docker-agent:v1'
+       image 'pno2cidocker/maven-agent:v1'
    }
 }
-  environment {
-    PATH = "$PATH:/usr/bin"
-  }
-    
-  stages {
+   stages {
     stage('Print PATH variable') {
       steps {
         sh 'echo $PATH'
@@ -17,7 +13,6 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
     stage('Build and Test') {
@@ -40,14 +35,13 @@ pipeline {
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "pno2cidocker/demo-java-jenkins:${BUILD_NUMBER}"
-        // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+            docker.withRegistry('https://index.docker.io/', "docker-cred") {
                 dockerImage.push()
             }
         }
