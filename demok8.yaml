@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demok8
-        image: pnucmcs/ultimate-cicd:replaceImageTag
+        image: pnucmcs/ultimate-cicd:11
         ports:
         - containerPort: 8080
 ---
