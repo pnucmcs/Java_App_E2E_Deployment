@@ -51,7 +51,7 @@ pipeline {
           sh '''
           git config --global user.email "pnucmcs@gmail.com"
           git config --global user.name "pnucmcs"
-          rm -rf demojavagitrepo && git clone https://github.com/pnucmcs/demojavagitrepo.git
+          git clone https://github.com/pnucmcs/demojavagitrepo.git
           cd demojavagitrepo
           BUILD_NUMBER=${BUILD_NUMBER}
           sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" demok8.yaml
