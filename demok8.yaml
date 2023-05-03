@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demok8
-        image: pno2cidocker/demo-java-jenkins:replaceImageTag
+        image: pnucmcs/ultimate-cicd:replaceImageTag
         ports:
         - containerPort: 8080
 ---
