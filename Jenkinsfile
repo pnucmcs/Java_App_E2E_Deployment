@@ -45,22 +45,22 @@ pipeline {
         }
       }
     }
-    stage('Update Deployment File') {
-        environment {
-            GIT_REPO_NAME = "demojavagitrepo"
-            GIT_USER_NAME = "pnucmcs"
+    stage('Update file in Git repository') {
+      steps {
+        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+          sh '''
+          git config --global user.email "pnucmcs@gmail.com"
+          git config --global user.name "pnucmcs"
+          git clone https://github.com/pnucmcs/demojavagitrepo.git
+          cd demojavagitrepo
+          BUILD_NUMBER=${BUILD_NUMBER}
+          sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" demok8.yaml
+          git add demok8.yaml
+          git commit -m "Update demok8.yaml"
+          git push https://${GITHUB_TOKEN}@github.com/pnucmcs/demojavagitrepo main
+          '''
         }
-        steps {
-            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh 'git config user.email "pnucmcs@gmail.com"'
-                sh 'git config user.name "pnucmcs"'
-                sh 'BUILD_NUMBER=${BUILD_NUMBER}'
-                sh 'sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" demok8.yaml'
-                sh 'git add demok8.yaml'
-                sh 'git commit -m "Update deployment image to version ${BUILD_NUMBER}"'
-                sh 'git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main'
-            }
-        }
+      }
     }
   }
 }
