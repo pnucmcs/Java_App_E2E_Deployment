@@ -58,6 +58,7 @@ pipeline {
           git add demok8.yaml
           git commit -m "Update demok8.yaml"
           git push https://${GITHUB_TOKEN}@github.com/pnucmcs/demojavagitrepo main
+          rm -r demojavagitrepo
           '''
         }
       }
