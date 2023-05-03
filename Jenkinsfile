@@ -52,15 +52,13 @@ pipeline {
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh '''
-                    git config user.email "pnucmcs@gmail.com"
-                    git config user.name "pnucmcs"
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" demok8.yaml
-                    git add demok8.yaml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main
-                '''
+                sh 'git config user.email "pnucmcs@gmail.com"'
+                sh 'git config user.name "pnucmcs"'
+                sh 'BUILD_NUMBER=${BUILD_NUMBER}'
+                sh 'sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" demok8.yaml'
+                sh 'git add demok8.yaml'
+                sh 'git commit -m "Update deployment image to version ${BUILD_NUMBER}"'
+                sh 'git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main'
             }
         }
     }
