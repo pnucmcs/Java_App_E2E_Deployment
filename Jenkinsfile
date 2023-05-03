@@ -10,7 +10,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        git branch: 'main', url: 'https://github.com/pnucmcs/demojavagitrepo.git'
+        //git branch: 'main', url: 'https://github.com/pnucmcs/demojavagitrepo.git'
       }
     }
     stage('Build and Test') {
